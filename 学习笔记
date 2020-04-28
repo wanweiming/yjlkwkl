@@ -1,0 +1,208 @@
+1、进度。五一结束之前完成。
+2、可以适当减少一些封装。
+**********************************
+1、json-server:快速搭建一个提供json数据的服务器。数据的模拟。
+http://localhost:8090/
+   1、下载，全局安装
+        cnpm install json-server -g
+   2、开启。指定json文件,在指定的文件目录下打开cmd
+      1、查看版本
+        json-server --version
+      2、开启服务
+        json-server 指定json文件   --watch  --port 8090
+      例如：json-server my.json --watch --port 8090
+   如果你要使用express需要指定静态资源。并且每一个接口的JSON数据，都要写一个JSON文件。
+   建议：
+        将该json-server安装在自己的服务当中。
+2、sass react
+    1、下载sass相对应的模块
+        1、cnpm install sass-loader node-sass -D
+3、布局的设置 class 模块化处理，如何解决样式冲突。
+    1、全局样式
+        import xxxx.scss
+    2、组件样式
+        one1.jsx one2.jsx  one3.jsx one4.jsx
+    3、组件样式的模块化
+        1、定义一个以.module.css结尾的文件。
+        2、引入
+            import style from "./one.module.css"
+        3、使用
+            <div className={style.bg}>Two</div>
+**************************************************************
+项目：
+    全局的样式放置在:assets/css目录下，然后在src->index.js全局引入
+        import "./assets/css/xxx.scss"
+    组件：
+        1、样式较少的话，可以直接写在组件内部
+        2、如果样式较多的话，可以在组件当前目录下创建一个css或scss文件，记得加上.module
+*************************************************************
+可以通过flexible该插件将px转换成rem.
+1、安装
+    flexible:可以自动为项目将加viewport标签。动态。
+    postcss-px2rem:负责将px转为rem.
+    cnpm install lib-flexible postcss-px2rem -S
+2、修改webpack配置信息。
+    node_module/react-scripts/config/webpack.config.js
+   1、引入
+       const px2rem = require("postcss-px2rem")
+   2、增加代码：114
+       px2rem({remUnit:75}),//  这里表示的意思是75px转为1rem
+3、打开src/index.js
+      import "lib-flexible";
+**************************************************************
+4、git
+Git（读音为/gɪt/）是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。
+团队协作。
+安装：https://git-scm.com/downloads
+*************************************************************
+github:注册
+git --version:查看版本号
+配置：打开cmd
+    git config --global user.name "zhangpeiyue"
+    git config --global user.email "tydtea@163.com"
+查看：
+    git config user.name
+    git config user.email
+**************************************************************
+git 三大件：
+    1、仓库 git 隐藏文件
+    2、缓冲区（暂存区）：用户不可以直接操作文件，先将操作放置在暂存区当中。然后再提交到仓库。
+    3、工作区：可见的文件。（项目文件）
+*********************************************************
+git 是可以不需要网络进行开发的。允许在本地创建一个仓库。（本地仓库）
+1、git init:创建（初始化）本地仓库
+2、git status:查看当前的状态。
+3、git reset HEAD 文件名：可以将指定的文件从暂存区拉回到工作区
+   git reset HEAD *：可以将多个文件从暂存区拉回到工作区
+4、git diff 文件名：查看当前文件与仓库中的文件的异同。
+    红字：删除
+    绿字：增加
+    白字：未改变
+5、git reflog:可以查看操作记录
+6、git reset --hard :查看上次操作记录
+   git reset --hard 记录ID的前四位，进行版本之间的切换
+   git reset --hard HEAD^
+*********增加************************
+1、添加一个文件
+git add 文件名：将指定的文件放置在暂存区当中
+git commit -m "说明"：提交到本地仓库当中
+2、添加指定文件
+git add 文件名 文件名 :添加多个
+git add *：将未增加的全部添加到暂存区
+git commit -m "说明"
+*********修改************************
+1、git add *
+2、git commit -m "xxixixi"
+*********删除************************
+1、物理删除
+    1、git rm 文件
+    2、git commit -m "xxxxx"
+2、命令来删除
+    1、git rm 文件
+    2、git commit -m "xxxxx"
+3、误删除
+    1、物理删除：
+        git checkout -- 文件名
+    2、如果执行完rm
+        git reset HEAD two.html :将指定文件从暂存区回滚到工作区
+        git checkout -- two.html：从仓库当中将其拿回来
+******分支********
+master:主分支
+dev0.1:开发版本
+git branch :查看分支
+git branch dev:创建分支dev
+git checkout dev:跳转到dev分支当中
+git checkout -b test：创建分支test并跳转到test分支。
+合并：
+    将dev分支合并到master主分支。
+    1、先回到master主分支
+    2、git merge dev:将dev合并到当前分支下
+*******************远程仓库**********************************************
+1、github:
+    https://github.com
+ *********************************
+ 1、登陆该网站。注册
+ 2、创建密钥：本机存放。
+    1、打开cmd
+    2、执行以下命令：
+        ssh-keygen -t rsa -C "tydtea@163.com"
+    3、 打开：C:\Users\zhangpeiyue/.ssh/id_rsa.pub.
+    4、将文件的内容得到到github上：
+        头部最右侧头像-》 settings ->SSH and GPG keys->SSH keys:->new ssh key
+         粘贴
+ 3、创建远程仓库
+    进入首页创建
+ 4、
+    git init// 创建本地仓库
+    git add README.md// 增加文件到暂存区
+    git commit -m "first commit"// 放置到本地仓库
+    git remote add origin git@github.com:tydtea/1907.git // 与远程仓库创建关联
+    git push -u origin master// 将本地内容提交到远程仓库当中
+
+ 5、git remote -v：查看是否与远程关联成功
+ ***********************************************************************
+ git 使用流程：
+    1、负责人：
+       1、在github上创建一个项目的空仓库
+       2、在自己的电脑上找一个文件夹
+           npx create-react-app one
+           架构搭建完成
+           cd one
+           git init
+           git add *
+           git commit -m "create project"
+           git remote add origin git@github.com:tydtea/1907.git
+           git push -u origin master
+           ***********
+       3、创建分支
+           git checkout -b dev
+           git push -u origin dev
+    2、其它成员以及负责人：
+       1、克隆
+           git clone -b dev git@github.com:tydtea/1907.git
+       2、进入到下载的文件夹。
+           cd 1907
+*********************************************************************************
+负责人：
+    项目当中--》settings-》manageaccess->
+      被邀请人登陆自己的邮箱。应该收到一个邀请，然后选择同意。pc
+组长负责将你们的工作日志，分享到该项目下面。
+
+*********************************
+小组负责人：
+    git clone -b zone git@github.com:tydtea/1907.git
+    在zone内新建一个文件夹,文件夹的名字组长名。
+    工作日志
+        组内成员：
+            xxxxx;
+        项目地址：https://github.com/tydtea/1907
+        上线地址：xxxxx.
+        ***************4.29**************************
+        张三：
+        李四：
+        王五：
+        赵六：
+        ***************4.28**************************
+    其它项目文件：
+
+
+
+ ***********************************************************************
+ 解决冲突：
+    1、git pull
+    2、手动修改
+    3、git add
+    4、git commit -m "说明"
+    5、git push
+*******************工作日志**********************************************
+1、在项目的根目录创建：
+    1、工作日志.txt：
+        组长：
+        组员：
+工作场景：
+    1、我修改完之后，发现改乱了，想恢复上一个版本。
+**********************************
+axios封装
+路由:
+redux:
+
